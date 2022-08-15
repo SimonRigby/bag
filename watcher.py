@@ -23,7 +23,7 @@ class Trade:
 class Watcher:
     def __init__(self, callbacks):
         self.callbacks = callbacks
-        self.processor = setup
+        self.processor = self.setup
         
     def setup(self, data = None):
         # global init here rather than in constructor to allow 'reseting' the machine
