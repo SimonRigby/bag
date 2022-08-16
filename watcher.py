@@ -122,6 +122,8 @@ class GapWatcher(Watcher):
         self.processor = self.setup
         self.processor()
 
+        
+# sample client        
 if __name__ == '__main__':
     trades = []
     
