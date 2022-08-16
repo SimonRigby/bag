@@ -102,17 +102,22 @@ class GapWatcher(Watcher):
         
     def counting(self):
         
+        exit_time = None
+        exit_price = None
+        
         self.current_hold += 1
         self.raise_event('counting', self.current_hold)
         
         if self.current.hold == 3:
-            self.trade.exit_time = self.row.time
-            self.trade.exit_price = self.row.mid_close
+            exit_time = self.row.time
+            exit_price = self.row.mid_close
             self.processor = self.closing
-            self.processor()
+            self.processor(exit_time, exit_price)
     
-    def closing(self):
+    def closing(self, exit_time, exit_price):
         # client could 'register' for this and add the trade to a list of closed trades
+        self.exit_time = exit_time
+        self.exit_price = exit_price
         self.raise_event('closing', self.trade)
         self.processor = self.setup
         self.processor()
